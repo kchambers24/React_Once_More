@@ -3,18 +3,18 @@ var axios = require('axios');
 var _baseURL = 'http://api.openweathermap.org/data/2.5/';
 var _APIKEY = 'f029fbf5712c628d6935e6ee78953cfe';
 
-function prepRouteParams (queryStringData) {
+function prepRouteParams(queryStringData) {
   return Object.keys(queryStringData)
-    .map(function (key) {
+    .map(function(key) {
       return key + '=' + encodeURIComponent(queryStringData[key]);
     }).join('&')
 }
 
-function prepUrl (type, queryStringData) {
+function prepUrl(type, queryStringData) {
   return _baseURL + type + '?' + prepRouteParams(queryStringData);
 }
 
-function getQueryStringData (city) {
+function getQueryStringData(city) {
   return {
     q: city,
     type: 'accurate',
@@ -23,22 +23,22 @@ function getQueryStringData (city) {
   }
 }
 
-function getCurrentWeather (city) {
+function getCurrentWeather(city) {
   var queryStringData = getQueryStringData(city);
   var url = prepUrl('weather', queryStringData)
 
   return axios.get(url)
-    .then(function (currentWeatherData) {
+    .then(function(currentWeatherData) {
       console.log(currentWeatherData.data)
     })
 }
 
-function getForcast (city) {
+function getForcast(city) {
   var queryStringData = getQueryStringData(city);
   var url = prepUrl('forecast/daily', queryStringData)
 
   return axios.get(url)
-    .then(function (forecastData) {
+    .then(function(forecastData) {
       console.log(forecastData.data)
     })
 }
